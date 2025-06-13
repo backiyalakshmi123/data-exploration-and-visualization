@@ -1,0 +1,45 @@
+PROGRAM 1
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Sample Sales Data
+data = {
+    'Employee': ['Asha', 'Vikram', 'Neha', 'Rahul', 'Divya'],
+    'Product': ['Laptop', 'Mobile', 'Tablet', 'Laptop', 'Mobile'],
+    'Units Sold': [45, 80, 60, 70, 90],
+    'Revenue': [450000, 320000, 180000, 700000, 360000]  # In Rupees
+}
+
+# Create DataFrame and add Serial Number
+df = pd.DataFrame(data)
+df.index += 1
+df.index.name = 'S.No'
+
+# Display the DataFrame
+print("SALES DATAFRAME\n")
+print(df)
+
+# Data Analysis
+print("\nSALES DATA ANALYSIS")
+print("Total Units Sold:", df['Units Sold'].sum())
+print("Average Revenue:", df['Revenue'].mean())
+print("Top Seller (by Revenue):", df.loc[df['Revenue'].idxmax(), 'Employee'])
+
+# Visualization: Units Sold by Each Employee
+plt.figure(figsize=(8, 4))
+plt.bar(df['Employee'], df['Units Sold'], color='orange')
+plt.title('Units Sold by Each Employee')
+plt.xlabel('Employee')
+plt.ylabel('Units Sold')
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+
+# Visualization: Revenue per Product (grouped)
+plt.figure(figsize=(6, 4))
+grouped = df.groupby('Product')['Revenue'].sum()
+grouped.plot(kind='pie', autopct='%1.1f%%', startangle=140, colors=['lightblue', 'lightgreen', 'salmon'])
+plt.title('Revenue Contribution by Product')
+plt.ylabel('')
+plt.tight_layout()
+plt.show()
