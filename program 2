@@ -1,0 +1,39 @@
+program 2
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Sample data
+data = {
+    'ProductID': [101, 102, 103, 104, 105],
+    'ProductName': ['Pen', 'Notebook', 'Eraser', 'Pencil', 'Scale'],
+    'Category': ['Stationery', 'Stationery', 'Stationery', 'Stationery', 'Stationery'],
+    'Price': [10, 50, 5, 7, 15],
+    'QuantitySold': [100, 60, 150, 130, 90]
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+print("CSV file created successfully.")
+print(df.info())
+
+print("\nData columns (total {} columns):".format(len(df.columns)))
+print(df.describe(include='all'))
+
+# Plot: Distribution of Prices
+plt.figure(figsize=(6, 4))
+plt.hist(df['Price'], bins=5, color='skyblue', edgecolor='black')
+plt.title('Distribution of Product Prices')
+plt.xlabel('Price')
+plt.ylabel('Count')
+plt.grid(True)
+plt.show()
+
+# Plot: Top Selling Products
+top_products = df.sort_values(by='QuantitySold', ascending=False).head(5)
+plt.figure(figsize=(8, 4))
+plt.bar(top_products['ProductName'], top_products['QuantitySold'], color='orange')
+plt.title('Top Selling Products')
+plt.xlabel('Product Name')
+plt.ylabel('Quantity Sold')
+plt.grid(axis='y')
+plt.show()
